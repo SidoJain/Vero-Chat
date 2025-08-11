@@ -49,7 +49,7 @@ export default function Chat({ friend, onBack }: ChatProps) {
     const [loading, setLoading] = useState(false)
     const [typing, setTyping] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
-    const typingTimeoutRef = useRef<NodeJS.Timeout>()
+    const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
     const { user, token } = useAuth()
     const { socket, isConnected } = useSocket()
 
