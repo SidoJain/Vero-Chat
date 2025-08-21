@@ -22,6 +22,16 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+function isTokenExpired(token: string): boolean {
+    try {
+        const [, payload] = token.split('.');
+        const { exp } = JSON.parse(atob(payload));
+        return exp * 1000 < Date.now();
+    } catch {
+        return true;
+    }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [token, setToken] = useState<string | null>(null)
@@ -32,8 +42,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const savedUser = localStorage.getItem("user")
 
         if (savedToken && savedUser) {
-            setToken(savedToken)
-            setUser(JSON.parse(savedUser))
+            if (isTokenExpired(savedToken) || isTokenExpired(savedUser)) {
+                localStorage.removeItem("token")
+                setToken(null)
+
+                localStorage.removeItem("user")
+                setUser(null)
+            } else {
+                setToken(savedToken)
+                setUser(JSON.parse(savedUser))
+            }
         }
         setLoading(false)
     }, [])
