@@ -46,7 +46,7 @@ const SocketHandler = (req: NextApiRequest, res: NextApiResponseServerIO) => {
                 socket.userId = decoded.userId
                 socket.username = decoded.username
                 next()
-            } catch (error) {
+            } catch {
                 next(new Error("Authentication error"))
             }
         })

@@ -156,7 +156,7 @@ export default function Friends({ onSelectFriend, selectedFriend }: FriendsProps
             } else {
                 setError(data.error)
             }
-        } catch (error) {
+        } catch {
             setError("Failed to send friend request")
         } finally {
             setLoading(false)
@@ -203,21 +203,6 @@ export default function Friends({ onSelectFriend, selectedFriend }: FriendsProps
             }
         } catch (error) {
             console.error("Error handling friend request:", error)
-        }
-    }
-
-    const removeFriend = async (friendshipId: string) => {
-        try {
-            const response = await fetch(`/api/friends/${friendshipId}`, {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` },
-            })
-
-            if (response.ok) {
-                loadFriends()
-            }
-        } catch (error) {
-            console.error("Error removing friend:", error)
         }
     }
 
