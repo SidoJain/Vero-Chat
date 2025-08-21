@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const savedUser = localStorage.getItem("user")
 
         if (savedToken && savedUser) {
-            if (isTokenExpired(savedToken) || isTokenExpired(savedUser)) {
+            if (isTokenExpired(savedToken)) {
                 localStorage.removeItem("token")
                 setToken(null)
 
