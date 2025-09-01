@@ -175,7 +175,6 @@ export default function Friends({ onSelectFriend, selectedFriend }: FriendsProps
             })
 
             const data = await response.json()
-
             if (response.ok) {
                 // Remove from pending requests immediately
                 const request = pendingRequests.find((req) => req.id === requestId)

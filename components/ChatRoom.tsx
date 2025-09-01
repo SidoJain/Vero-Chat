@@ -22,7 +22,7 @@ interface Friend {
 export default function ChatRoom() {
     const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null)
     const [showChat, setShowChat] = useState(false)
-    const { user, token, logout } = useAuth()
+    const { user, logout } = useAuth()
     const router = useRouter()
     const { socket } = useSocket()
 
